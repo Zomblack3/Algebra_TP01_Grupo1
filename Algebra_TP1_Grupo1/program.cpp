@@ -1,48 +1,68 @@
 #include "program.h"
 
-void program(Screen& actualScreen, Line& line)
+int actualLineSelected = 0;
+
+Line basicLine = { };
+
+void program(Screen& actualScreen, std::vector <Line>& line)
 {
 	updateProgram(actualScreen, line);
 
 	drawProgram(line);
 }
 
-void updateProgram(Screen& actualScreen, Line& line)
+void updateProgram(Screen& actualScreen, std::vector <Line>& line)
 {
+	if (line[actualLineSelected].hasStartingPos && line[actualLineSelected].hasEndingPos)
+	{
+		++actualLineSelected;
+
+		line.push_back(basicLine);
+	}
 
 	if (IsKeyPressed(KEY_R))
 	{
-		line.hasStartingPos = false;
-		line.hasEndingPos = false;
+		line[actualLineSelected].hasStartingPos = false;
+		line[actualLineSelected].hasEndingPos = false;
 	}
 
 	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
 	{
-		if (!line.hasStartingPos)
+		if (!line[actualLineSelected].hasStartingPos)
 		{
-			line.x1 = GetMousePosition().x;
-			line.y1 = GetMousePosition().y;
+			line[actualLineSelected].x1 = GetMousePosition().x;
+			line[actualLineSelected].y1 = GetMousePosition().y;
 
-			line.hasStartingPos = true;
+			line[actualLineSelected].hasStartingPos = true;
 		}
-		else if (!line.hasEndingPos)
-		{
-			line.x2 = GetMousePosition().x;
-			line.y2 = GetMousePosition().y;
+	}
 
-			line.hasEndingPos = true;
+	if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
+	{
+		if (!line[actualLineSelected].hasEndingPos)
+		{
+			if (line[actualLineSelected].x1 != line[actualLineSelected].x2 && line[actualLineSelected].y1 != line[actualLineSelected].y2)
+			{
+				line[actualLineSelected].x2 = GetMousePosition().x;
+				line[actualLineSelected].y2 = GetMousePosition().y;
+
+				line[actualLineSelected].hasEndingPos = true;
+			}
 		}
 	}
 }
 
-void drawProgram(Line line)
+void drawProgram(std::vector <Line> line)
 {
 	BeginDrawing();
 
 	ClearBackground(BLACK);
 
-	if (line.hasStartingPos && line.hasEndingPos)
-		DrawLine(line.x1, line.y1, line.x2, line.y2, WHITE);
+	for (int i = 0; i < line.size(); i++)
+	{
+		if (line[i].hasStartingPos && line[i].hasEndingPos)
+			DrawLine(line[i].x1, line[i].y1, line[i].x2, line[i].y2, WHITE);
+	}
 
 	EndDrawing();
 }

@@ -3,6 +3,8 @@
 #include "raylib.h"
 #include "game.h"
 
+#include <vector>
+
 struct Line
 {
 	int x1 = 0;
@@ -14,6 +16,8 @@ struct Line
 	bool hasEndingPos = false;
 };
 
-void program(Screen& actualScreen, Line& line);
-void updateProgram(Screen& actualScreen, Line& line);
-void drawProgram(Line line);
+extern Line basicLine;
+
+void program(Screen& actualScreen, std::vector <Line>& line);
+void updateProgram(Screen& actualScreen, std::vector <Line>& line);
+void drawProgram(std::vector <Line> line);

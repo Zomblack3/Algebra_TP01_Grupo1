@@ -3,6 +3,8 @@
 #include "raylib.h"
 #include "program.h"
 
+#include <vector>
+
 void game()
 {
 	const int windowWidth = 650;
@@ -12,7 +14,9 @@ void game()
 
 	InitWindow(windowWidth, windowHeight, "Algebra TP1");
 
-	Line line = { };
+	std::vector<Line> line = { basicLine };
+
+	SetTargetFPS(60); 
 
 	while (!WindowShouldClose())
 	{
