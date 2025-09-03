@@ -20,12 +20,6 @@ void updateProgram(Screen& actualScreen, std::vector <Line>& line)
 		line.push_back(basicLine);
 	}
 
-	if (IsKeyPressed(KEY_R))
-	{
-		line[actualLineSelected].hasStartingPos = false;
-		line[actualLineSelected].hasEndingPos = false;
-	}
-
 	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
 	{
 		if (!line[actualLineSelected].hasStartingPos)
@@ -65,4 +59,38 @@ void drawProgram(std::vector <Line> line)
 	}
 
 	EndDrawing();
+}
+
+bool checkIfLineIsCrossed(std::vector <Line> line)
+{
+	int px1 = 0;
+	int px2 = 0;
+	int py1 = 0;
+	int py2 = 0;
+	int px = 0;
+	int py = 0;
+	int t = 0;
+	int u = 0;
+
+	if (actualLineSelected > 0)
+	{
+		for (int i = 0; i < line.size(); i++)
+		{
+			//t = (line[i].x1 - line[i + 1].x2)
+			for (int j = 0; j < line.size(); j++)
+			{
+				if (i != j)
+				{
+					t = (((line[i].x1 - line[i].x2) * (line[i].y1 - line[j].y1)) - ((line[i].y1 - line[j].y1) * (line[i].x1 - line[i].x2)) / ((line[i].x1 - line[i].x2) * (line[j].y1 - line[j].y2)) - ((line[i].y1 - line[i].y2) * (line[j].x1 - line[j].x2)));
+					u = (((line[i].x1 - line[i].x2) * (line[i].y1 - line[j].y1)) - ((line[i].y1 - line[i].y2) * (line[i].x1 - line[j].x1)) / ((line[i].x1 - line[i].x2) * (line[j].y1 - line[j].y2)) - ((line[i].y1 - line[i].y2) * (line[j].x1 - line[j].x2)));
+
+				}
+
+			}
+		}
+	}
+	else
+		return false;
+
+
 }
