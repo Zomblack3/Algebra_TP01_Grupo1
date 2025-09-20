@@ -14,7 +14,8 @@ void game()
 
 	InitWindow(windowWidth, windowHeight, "Algebra TP1");
 
-	std::vector<Line> line = { basicLine };
+	std::vector<Polygon> polygons = { basicPolygon };
+	std::vector<Line> lines = { basicLine };
 
 	SetTargetFPS(60); 
 
@@ -29,7 +30,7 @@ void game()
 			break;
 		case PROGRAM:
 			
-			program(actualScreen, line);
+			program(actualScreen, lines, polygons);
 			
 			break;
 		case EXIT:

@@ -18,6 +18,17 @@ struct Line
 
 extern Line basicLine;
 
-void program(Screen& actualScreen, std::vector <Line>& line);
-void updateProgram(Screen& actualScreen, std::vector <Line>& line);
-void drawProgram(std::vector <Line> line);
+struct Polygon
+{
+	std::vector<Line> lines = { basicLine };
+};
+
+extern Polygon basicPolygon;
+
+void program(Screen& actualScreen, std::vector <Line>& line, std::vector <Polygon>& polygones);
+void updateProgram(Screen& actualScreen, std::vector <Line>& line, std::vector <Polygon>& polygones);
+void drawProgram(std::vector <Line> line, std::vector <Polygon> polygones);
+void addLine(std::vector <Line>& line);
+void setPolygone(std::vector <Line>& line, std::vector <Polygon>& polygones);
+
+bool checkDistanceBetweenLines(std::vector <Line> line);
