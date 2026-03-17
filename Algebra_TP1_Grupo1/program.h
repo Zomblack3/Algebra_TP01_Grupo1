@@ -12,6 +12,8 @@ struct Line
 	int x2 = 0;
 	int y2 = 0;
 
+	Color color = WHITE;
+
 	bool hasStartingPos = false;
 	bool hasEndingPos = false;
 };
@@ -26,9 +28,12 @@ struct Polygon
 extern Polygon basicPolygon;
 
 void program(Screen& actualScreen, std::vector <Line>& line, std::vector <Polygon>& polygones);
+
 void updateProgram(Screen& actualScreen, std::vector <Line>& line, std::vector <Polygon>& polygones);
 void drawProgram(std::vector <Line> line, std::vector <Polygon> polygones);
+
 void addLine(std::vector <Line>& line);
+
 void setPolygone(std::vector <Line>& line, std::vector <Polygon>& polygones);
 
 bool checkDistanceBetweenLines(std::vector <Line> line);
